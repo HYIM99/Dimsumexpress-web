@@ -1,112 +1,454 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DimSum Express | Alessandria</title>
+    <title>DimSum Express | Fast Food Asiatico</title>
     
-    <!-- 网站搜索标志与浏览器Favicon (使用官方直链) -->
-    <link rel="icon" type="image/png" href="https://ibb.co/DHWWdsS4">
-    <link rel="apple-touch-icon" href="https://ibb.co/DHWWdsS4">
+    <!-- 修复版：使用最稳定的 Logo 链接作为浏览器 Favicon 标志 -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/HDkwPS3N/IMG-8814.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/HDkwPS3N/IMG-8814.png">
 
-    <!-- 引入 Tailwind CSS 用于精简高效的布局 -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Font Awesome 社交媒体与外卖图标库 -->
+    <!-- 引入 Font Awesome 图标库，用于精致展现社交媒体与外卖图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        .bg-dimsum {
-            background-color: #fdfaf6;
+        /* 基础变量设置 */
+        :root {
+            --primary-color: #d33515; 
+            --secondary-color: #f7a928; 
+            --bg-color: #fdfaf6; 
+            --text-dark: #333333;
+            --text-light: #ffffff;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: direction 0.3s ease;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        /* 导航栏 */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* 国旗语言切换器 */
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .lang-switcher img {
+            width: 28px;
+            height: 20px;
+            object-fit: cover;
+            border-radius: 3px;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .lang-switcher img:hover {
+            transform: scale(1.15);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+
+        /* 英雄区域 (70vh 经典首图背景) */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1496116218417-1a781b1c416c?q=80&w=2000&auto=format&fit=crop') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 20px;
+        }
+
+        .industry-tag {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: 900;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            opacity: 0.95;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(211,53,21,0.3);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--text-light);
+            border-color: var(--text-light);
+            transform: translateY(-2px);
+        }
+
+        /* 章节通用样式 */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        /* 核心门店卡片与链接转化布局 */
+        .locations-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            max-width: 530px;
+            margin: 0 auto;
+        }
+
+        .location-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            width: 100%;
+            border-top: 5px solid var(--primary-color);
+            text-align: center;
+            border-left: 1px solid rgba(247,169,40,0.15);
+            border-right: 1px solid rgba(247,169,40,0.15);
+            border-bottom: 1px solid rgba(247,169,40,0.15);
+        }
+
+        .location-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .clickable-info {
+            color: var(--text-dark);
+            transition: all 0.2s ease;
+        }
+        .clickable-info:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        /* Deliveroo 按钮在卡片内样式 */
+        .deliveroo-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 15px;
+            background-color: #00CDBC;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px rgba(0,205,188,0.3);
+            transition: all 0.2s ease;
+        }
+
+        .deliveroo-btn:hover {
+            background-color: #00b5a6;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,205,188,0.4);
+        }
+
+        /* 阿拉伯语 RTL 特殊方向适配 */
+        html[dir="rtl"] .location-card {
+            text-align: right;
+        }
+        html[dir="rtl"] .info-item,
+        html[dir="rtl"] .deliveroo-btn {
+            flex-direction: row-reverse;
+        }
+
+        .bg-light-grey {
+            background-color: #f5f0eb;
+        }
+
+        /* 页脚布局 */
+        footer {
+            background-color: #4a150c;
+            color: var(--text-light);
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        footer .footer-logo {
+            height: 65px;
+            margin-bottom: 25px;
+        }
+
+        /* 页脚社交网络图标阵列 */
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 30px;
+            font-size: 1.6rem;
+        }
+
+        .footer-socials a {
+            color: var(--text-light);
+            opacity: 0.8;
+            transition: all 0.2s ease;
+        }
+
+        .footer-socials a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+        .footer-socials a.insta:hover { color: #f7a928; }
+        .footer-socials a.tiktok:hover { color: #000000; }
+        .footer-socials a.fb:hover { color: #1877F2; }
+        .footer-socials a.threads:hover { color: #cccccc; }
+
+        footer p {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        /* 移动端完美排版微调 */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 15px; padding: 20px 5%; }
+            .nav-right { flex-direction: column; gap: 15px;}
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1rem; }
+            .location-card { padding: 35px 20px; }
         }
     </style>
 </head>
-<body class="bg-dimsum min-h-screen flex flex-col justify-between p-4 text-center select-none font-sans text-[#333333]">
+<body>
 
-    <!-- 顶端半透明或留白，保持视觉高级感 -->
-    <div class="w-full flex justify-center pt-8">
-        <div class="w-40 transform hover:scale-105 transition duration-300">
-            <img src="https://i.ibb.co/jwttZ0Mn/1-15.png" alt="DimSum Express Logo" class="w-full object-contain drop-shadow-sm">
+    <!-- 顶部导航栏 (修复Logo为最稳定源链接) -->
+    <nav>
+        <div class="logo">
+            <img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo">
         </div>
-    </div>
-
-    <!-- 核心业务与核心地址导航区（完美适配移动端点击） -->
-    <div class="max-w-md w-full mx-auto my-auto space-y-8 px-4 py-6">
-        
-        <!-- 店名与开业标语 -->
-        <div class="space-y-2">
-            <h1 class="text-3xl font-black text-[#d33515] tracking-wide uppercase">
-                DIM SUM EXPRESS
-            </h1>
-            <p class="text-lg font-bold text-[#f7a928] uppercase tracking-widest">
-                ALESSANDRIA
-            </p>
-        </div>
-
-        <hr class="border-[#f7a928] opacity-30 w-16 mx-auto">
-
-        <!-- 核心联系信息与导航 -->
-        <div class="space-y-5 bg-white p-6 rounded-2xl shadow-sm border border-orange-100">
-            <!-- 1. 谷歌地图一键导航 -->
-            <a href="https://maps.google.com/?q=Corso+Giuseppe+Romita+80+82+Alessandria" target="_blank" 
-               class="flex items-center space-x-3 justify-center text-base font-semibold text-[#333333] hover:text-[#d33515] transition py-1">
-                <span class="text-[#d33515] text-xl">📍</span>
-                <span class="underline">Corso Giuseppe Romita, 80/82, Alessandria</span>
-            </a>
-
-            <!-- 2. 一键拨打电话 -->
-            <a href="tel:+390131033333" 
-               class="flex items-center space-x-3 justify-center text-lg font-bold text-[#d33515] hover:scale-105 transition py-1">
-                <span class="text-xl">📞</span>
-                <span>Tel: 0131 033333</span>
-            </a>
-
-            <!-- 3. 精准营业时间 -->
-            <div class="flex items-center space-x-3 justify-center text-sm font-medium text-gray-500 py-1">
-                <span>🕒</span>
-                <span>Orari: 11:00 - 20:30</span>
+        <div class="nav-right">
+            <div class="lang-switcher">
+                <img src="https://flagcdn.com/w40/cn.png" alt="中文" title="中文" onclick="switchLanguage('zh')">
+                <img src="https://flagcdn.com/w40/it.png" alt="Italiano" title="Italiano" onclick="switchLanguage('it')">
+                <img src="https://flagcdn.com/w40/gb.png" alt="English" title="English" onclick="switchLanguage('en')">
+                <img src="https://flagcdn.com/w40/de.png" alt="Deutsch" title="Deutsch" onclick="switchLanguage('de')">
+                <img src="https://flagcdn.com/w40/fr.png" alt="Français" title="Français" onclick="switchLanguage('fr')">
+                <img src="https://flagcdn.com/w40/sa.png" alt="العربية" title="العربية" onclick="switchLanguage('ar')">
             </div>
         </div>
+    </nav>
 
-        <!-- 外卖平台 Deliveroo 核心转化按钮（高亮醒目） -->
-        <div class="pt-2">
-            <a href="https://deliveroo.it/menu/alessandria/alessandria/dim-sum-express-alessandria-corso-giuseppe-romita?utm_campaign=organic&utm_medium=referrer&utm_source=menu_share" 
-               target="_blank" 
-               class="block w-full py-4 bg-[#00CDBC] text-white font-bold text-lg rounded-xl shadow-md hover:bg-[#00b5a6] transition duration-200 transform active:scale-95 flex items-center justify-center space-x-2">
-                <i class="fas fa-motorcycle"></i>
-                <span>Ordina su Deliveroo</span>
-            </a>
+    <!-- 背景首图区 -->
+    <header id="home" class="hero">
+        <div class="industry-tag">Fast Food Asiatico</div>
+        <h1>DIM SUM EXPRESS</h1>
+        <p data-i18n="hero_subtitle">正宗、新鲜、精致。每一口都是地道中式风味，为您带来极致的饺子与拉面体验。</p>
+        <a href="#locations" class="btn" data-i18n="hero_btn">寻找我们的门店</a>
+    </header>
+
+    <!-- 核心门店与信息交互区 -->
+    <section id="locations" class="bg-light-grey">
+        <h2 class="section-title" data-i18n="sec_locations">我们的门店</h2>
+        <div class="locations-container">
+            
+            <div class="location-card">
+                <h3 data-i18n="loc1_title">亚历山德里亚店 (C.C. Panorama)</h3>
+                
+                <!-- 1. 谷歌导航链接 (完美融入 C.C. Panorama 与 50 号门牌) -->
+                <div class="info-item">
+                    <span>📍</span>
+                    <a href="https://maps.google.com/?q=Dim+Sum+Express+Centro+Commerciale+Panorama+Corso+Giuseppe+Romita+50+Alessandria" target="_blank" class="clickable-info">
+                        <span data-i18n="loc_address_text">Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alexandria</span>
+                    </a>
+                </div>
+                
+                <!-- 2. 电话一键拨打 -->
+                <div class="info-item">
+                    <span>📞</span>
+                    <a href="tel:+390131033333" class="clickable-info font-bold text-[#d33515]">
+                        0131 033333
+                    </a>
+                </div>
+                
+                <!-- 3. 精准营业时间 -->
+                <div class="info-item" style="color: #666666; font-size: 0.95rem;">
+                    <span>🕒</span>
+                    <span><span data-i18n="loc_hours">营业时间</span>: 11:00 - 20:30</span>
+                </div>
+
+                <!-- 4. 外卖平台 Deliveroo 核心转化按钮 -->
+                <a href="https://deliveroo.it/menu/alessandria/alessandria/dim-sum-express-alessandria-corso-giuseppe-romita?utm_campaign=organic&utm_medium=referrer&utm_source=menu_share" target="_blank" class="deliveroo-btn">
+                    <i class="fas fa-motorcycle"></i>
+                    <span>Ordina su Deliveroo</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 页脚与社交矩阵 -->
+    <footer>
+        <img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo" class="footer-logo">
+        
+        <div class="footer-socials">
+            <a href="https://www.instagram.com/dimsumexpress.official?igsh=ZzZvMWE4cjM5eXVu&utm_source=qr" target="_blank" class="insta" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@dimsum.express.of?_r=1&_t=ZN-95weziGKPAc" target="_blank" class="tiktok" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.facebook.com/share/1C9QdxWBbW/?mibextid=wwXIfr" target="_blank" class="fb" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.threads.com/@dimsumexpress.official?igshid=NTc4MTIwNjQ2YQ==" target="_blank" class="threads" title="Threads"><i class="fa-brands fa-threads"></i></a>
         </div>
 
-    </div>
+        <p><strong>ABCD SRLS</strong></p>
+        <p>P.IVA 14118540963</p>
+        <p data-i18n="contact_hq">公司注册地址</p>
+        <p>Via Pellegrino Rossi 52, 20161 Milano MI</p>
+        <p style="margin-top:25px; opacity: 0.5;">© 2026 DimSum Express. All rights reserved.</p>
+    </footer>
 
-    <!-- 底端社交媒体矩阵 (完美还原企业矩阵布局) -->
-    <div class="w-full max-w-xs mx-auto pb-8 space-y-4">
-        <div class="flex items-center justify-center space-x-6">
-            <!-- Instagram -->
-            <a href="https://www.instagram.com/dimsumexpress.official?igsh=ZzZvMWE4cjM5eXVu&utm_source=qr" target="_blank" class="text-2xl hover:scale-110 transition duration-200 bg-gradient-to-tr from-[#FFB13B] via-[#DD2A7B] to-[#8134AF] text-transparent bg-clip-text">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <!-- TikTok -->
-            <a href="https://www.tiktok.com/@dimsum.express.of?_r=1&_t=ZN-95weziGKPAc" target="_blank" class="text-[#000000] text-2xl hover:scale-110 transition duration-200">
-                <i class="fab fa-tiktok"></i>
-            </a>
-            <!-- Facebook -->
-            <a href="https://www.facebook.com/share/1C9QdxWBbW/?mibextid=wwXIfr" target="_blank" class="text-[#1877F2] text-2xl hover:scale-110 transition duration-200">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <!-- Threads -->
-            <a href="https://www.threads.com/@dimsumexpress.official?igshid=NTc4MTIwNjQ2YQ==" target="_blank" class="text-[#000000] text-2xl hover:scale-110 transition duration-200">
-                <i class="fa-brands fa-threads"></i>
-            </a>
-        </div>
+    <script>
+        const translations = {
+            zh: {
+                hero_subtitle: "正宗、新鲜、精致。每一口都是地道中式风味，为您带来极致的饺子与拉面体验。", hero_btn: "寻找我们的门店",
+                sec_locations: "我们的门店", loc1_title: "亚历山德里亚店 (C.C. Panorama)",
+                loc_hours: "营业时间", contact_hq: "公司注册地址",
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria"
+            },
+            it: {
+                hero_subtitle: "Autentico, fresco e raffinato. Ogni boccone è una vera Robotica di sapori cinesi con ravioli e ramen.", hero_btn: "Trova il Ristorante",
+                sec_locations: "Le Nostre Sedi", loc1_title: "Alessandria (C.C. Panorama)",
+                loc_hours: "Orari", contact_hq: "Sede Legale",
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria"
+            },
+            en: {
+                hero_subtitle: "Authentic, fresh, and refined. Every bite is a genuine Chinese flavor experience of dumplings and ramen.", hero_btn: "Find Our Store",
+                sec_locations: "Our Locations", loc1_title: "Alessandria (C.C. Panorama)",
+                loc_hours: "Hours", contact_hq: "Registered Office",
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria"
+            },
+            de: {
+                hero_subtitle: "Authentisch, frisch und raffiniert. Jeder Bissen bietet ein echtes chinesisches Geschmackserlebnis mit Dumplings und Ramen.", hero_btn: "Restaurant finden",
+                sec_locations: "Unsere Standorte", loc1_title: "Alessandria (C.C. Panorama)",
+                loc_hours: "Öffnungszeiten", contact_hq: "Eingetragener Sitz",
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria"
+            },
+            fr: {
+                hero_subtitle: "Authentique, frais et raffiné. Chaque bouchée est une véritable expérience de saveurs chinoises avec nos raviolis et ramen.", hero_btn: "Trouver un restaurant",
+                sec_locations: "Nos Restaurants", loc1_title: "Alessandria (C.C. Panorama)",
+                loc_hours: "Horaires", contact_hq: "Siège Social",
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria"
+            },
+            ar: {
+                hero_subtitle: "أصلي، طازج، وراقي. كل قمة هي تجربة تذوق صينية حقيقية مع الزلابية والنودلز الرائعة.", hero_btn: "ابحث عن فرع",
+                sec_locations: "فروعنا", loc1_title: "فرع أليساندريا (C.C. Panorama)",
+                loc_hours: "ساعات العمل", contact_hq: "المقر الرئيسي للشركة",
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria"
+            }
+        };
 
-        <!-- 企业合规基础信息 -->
-        <div class="text-[10px] text-gray-400 font-medium space-y-0.5 leading-tight">
-            <p class="font-bold text-gray-500">ABCD SRLS</p>
-            <p>P.IVA 14118540963</p>
-            <p>© 2026 DimSum Express. All rights reserved.</p>
-        </div>
-    </div>
+        let currentLang = 'zh';
 
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            if (lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+            }
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerText = translations[lang][key];
+            });
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+        }
+    </script>
 </body>
 </html>
