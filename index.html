@@ -2,18 +2,16 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DimSum Express | Fast Food Asiatico</title>
 
     <meta name="description" content="Dim Sum Express - Il miglior fast food asiatico a Alessandria (C.C. Panorama). Ravioli artigianali e ramen tradizionale.">
     <meta name="keywords" content="Dim Sum Express, Dim Sum Express Alessandria, Fast Food Asiatico Alessandria, Ravioli Alessandria, Ramen Alessandria">
     <meta name="author" content="Dim Sum Express">
 
-    <!-- 修复版：使用最稳定的 Logo 链接作为浏览器 Favicon 标志 -->
     <link rel="icon" type="image/png" href="https://i.ibb.co/HDkwPS3N/IMG-8814.png">
     <link rel="apple-touch-icon" href="https://i.ibb.co/HDkwPS3N/IMG-8814.png">
 
-    <!-- 引入 Font Awesome 图标库，用于精致展现社交媒体与外卖图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -24,7 +22,7 @@
             --bg-color: #fdfaf6; 
             --text-dark: #333333;
             --text-light: #ffffff;
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         /* 全局样式 */
@@ -48,24 +46,68 @@
             color: var(--text-dark);
         }
 
-        /* 导航栏 */
+        /* 👑 升级版：智能高端弹性导航栏 */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 5%;
-            background-color: var(--bg-color);
+            background-color: rgba(253, 250, 246, 0.96); /* 苹果风微透质感 */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            flex-wrap: wrap;
+            box-shadow: 0 1px 15px rgba(0,0,0,0.04);
         }
 
         .logo img {
-            height: 60px;
+            height: 55px;
             width: auto;
             display: block;
+            transition: transform 0.2s ease;
+        }
+        .logo img:hover {
+            transform: scale(1.03);
+        }
+
+        /* 🆕 核心新增：预留多独立支页按钮大厅（自适应居中） */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .menu-link {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            position: relative;
+            padding: 8px 2px;
+            letter-spacing: 0.5px;
+            transition: color 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .menu-link:hover, .menu-link.active {
+            color: var(--primary-color);
+        }
+
+        /* 唯美苹果风下划线滑过动效 */
+        .menu-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .menu-link:hover::after, .menu-link.active::after {
+            transform: scaleX(1);
         }
 
         .nav-right {
@@ -79,22 +121,21 @@
             display: flex;
             gap: 8px;
             align-items: center;
-            flex-wrap: wrap;
         }
 
         .lang-switcher img {
             width: 28px;
             height: 20px;
             object-fit: cover;
-            border-radius: 3px;
+            border-radius: 4px;
             cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .lang-switcher img:hover {
             transform: scale(1.15);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.25);
         }
 
         /* 英雄区域 (70vh 经典首图背景) */
@@ -236,14 +277,13 @@
             box-shadow: 0 4px 12px rgba(0,205,188,0.3);
             transition: all 0.2s ease;
         }
-
         .deliveroo-btn:hover {
             background-color: #00b5a6;
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(0,205,188,0.4);
         }
 
-        /* 🆕 Glovo 专属定制高转化按钮样式 */
+        /* Glovo 专属定制高转化按钮样式 */
         .glovo-btn {
             display: flex;
             align-items: center;
@@ -251,16 +291,15 @@
             gap: 10px;
             width: 100%;
             padding: 15px;
-            background-color: #ffc244; /* Glovo 官方金黄色 */
-            color: #333333; /* 保证高清晰度阅读 */
+            background-color: #ffc244; 
+            color: #333333; 
             font-weight: 700;
             font-size: 1.1rem;
             border-radius: 12px;
-            margin-top: 15px; /* 留出精致呼吸感间距 */
+            margin-top: 15px; 
             box-shadow: 0 4px 12px rgba(255,194,68,0.3);
             transition: all 0.2s ease;
         }
-
         .glovo-btn:hover {
             background-color: #febb2d;
             transform: translateY(-2px);
@@ -274,6 +313,9 @@
         html[dir="rtl"] .info-item,
         html[dir="rtl"] .deliveroo-btn,
         html[dir="rtl"] .glovo-btn {
+            flex-direction: row-reverse;
+        }
+        html[dir="rtl"] .nav-menu {
             flex-direction: row-reverse;
         }
 
@@ -325,16 +367,34 @@
             letter-spacing: 0.5px;
         }
 
-        /* 移动端完美排版微调 */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 15px; padding: 20px 5%; }
-            .nav-right { flex-direction: column; gap: 15px;}
+        /* 🧱 极致移动端与 iPad 触控交互流微调 */
+        @media (max-width: 890px) {
+            nav { 
+                flex-direction: column; 
+                gap: 16px; 
+                padding: 15px 3%; 
+            }
+            .nav-menu { 
+                gap: 24px; 
+                width: 100%; 
+                justify-content: center; 
+                border-top: 1px solid rgba(0,0,0,0.05);
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+                padding: 8px 0;
+            }
+            .menu-link {
+                font-size: 0.9rem;
+            }
+            .nav-right { 
+                width: 100%;
+                justify-content: center; 
+            }
             .hero h1 { font-size: 2.8rem; }
             .hero p { font-size: 1rem; }
             .location-card { padding: 35px 20px; }
         }
 
-        /* IT主管新增：GDPR 优雅悬浮弹窗样式 */
+        /* GDPR 优雅悬浮弹窗样式 */
         .gdpr-banner {
             position: fixed;
             bottom: 20px;
@@ -391,11 +451,18 @@
 </head>
 <body>
 
-    <!-- 顶部导航栏 (修复Logo为最稳定源链接) -->
     <nav>
         <div class="logo">
-            <img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo">
+            <a href="#home"><img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo"></a>
         </div>
+        
+        <ul class="nav-menu">
+            <li><a href="#home" class="menu-link active" data-i18n="nav_home">首页</a></li>
+            <li><a href="#locations" class="menu-link" data-i18n="nav_locations">美味门店</a></li>
+            <li><a href="#home" class="menu-link" data-i18n="nav_menu">独立菜单页</a></li>
+            <li><a href="#home" class="menu-link" data-i18n="nav_story">品牌故事</a></li>
+        </ul>
+
         <div class="nav-right">
             <div class="lang-switcher">
                 <img src="https://flagcdn.com/w40/cn.png" alt="中文" title="中文" onclick="switchLanguage('zh')">
@@ -408,7 +475,6 @@
         </div>
     </nav>
 
-    <!-- 背景首图区 -->
     <header id="home" class="hero">
         <div class="industry-tag">Fast Food Asiatico</div>
         <h1>DIM SUM EXPRESS</h1>
@@ -416,7 +482,6 @@
         <a href="#locations" class="btn" data-i18n="hero_btn">寻找我们的门店</a>
     </header>
 
-    <!-- 核心门店与信息交互区 -->
     <section id="locations" class="bg-light-grey">
         <h2 class="section-title" data-i18n="sec_locations">我们的门店</h2>
         <div class="locations-container">
@@ -424,7 +489,6 @@
             <div class="location-card">
                 <h3 data-i18n="loc1_title">亚历山德里亚店 (C.C. Panorama)</h3>
                 
-                <!-- 1. 谷歌导航链接 -->
                 <div class="info-item">
                     <span>📍</span>
                     <a href="https://maps.google.com/?q=Dim+Sum+Express+Centro+Commerciale+Panorama+Corso+Giuseppe+Romita+50+Alessandria" target="_blank" class="clickable-info">
@@ -432,7 +496,6 @@
                     </a>
                 </div>
                 
-                <!-- 2. 电话一键拨打 -->
                 <div class="info-item">
                     <span>📞</span>
                     <a href="tel:+390131033333" class="clickable-info font-bold text-[#d33515]">
@@ -440,19 +503,16 @@
                     </a>
                 </div>
                 
-                <!-- 3. 精准营业时间 -->
                 <div class="info-item" style="color: #666666; font-size: 0.95rem;">
                     <span>🕒</span>
                     <span><span data-i18n="loc_hours">营业时间</span>: 11:00 - 20:00</span>
                 </div>
 
-                <!-- 4. 外卖平台 Deliveroo 核心转化按钮 -->
                 <a href="https://deliveroo.it/menu/alessandria/alessandria/dim-sum-express-alessandria-corso-giuseppe-romita?utm_campaign=organic&utm_medium=referrer&utm_source=menu_share" target="_blank" class="deliveroo-btn">
                     <i class="fas fa-motorcycle"></i>
                     <span>Ordina su Deliveroo</span>
                 </a>
 
-                <!-- 5. 🆕 外卖平台 Glovo 核心转化按钮 (多语言绑定) -->
                 <a href="https://glovo.go.link/open?link_type=store&store_id=595299&adjust_t=s321jkn" target="_blank" class="glovo-btn">
                     <i class="fas fa-motorcycle"></i>
                     <span data-i18n="glovo_btn_text">在 Glovo 上点餐</span>
@@ -462,7 +522,6 @@
         </div>
     </section>
 
-    <!-- 页脚与社交矩阵 -->
     <footer>
         <img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo" class="footer-logo">
         
@@ -479,7 +538,6 @@
         <p>Via Pellegrino Rossi 52, 20161 Milano MI</p>
         <p style="margin-top:25px; opacity: 0.5;">© 2026 DimSum Express. All rights reserved.</p>
 
-        <!-- 纯净精简版：仅保留 Zero1 Studio 制作方标签，无重复版权 -->
         <div class="zero1-tag" style="text-align: center; padding: 10px 20px 25px; font-size: 0.85rem; color: inherit; opacity: 0.7; display: flex; align-items: center; justify-content: center; line-height: 1;">
             <a href="https://zero1studio.it" target="_blank" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; vertical-align: middle;">
                 <svg width="15" height="15" viewBox="0 0 100 100" style="display: inline-block; vertical-align: middle;">
@@ -492,8 +550,10 @@
     </footer>
 
     <script>
+        // 🔒 多语言完整资产包（全新追加导航菜单多国翻译）
         const translations = {
             zh: {
+                nav_home: "首页", nav_locations: "美味门店", nav_menu: "独立菜单页", nav_story: "品牌故事",
                 hero_subtitle: "正宗、新鲜、精致。每一口都是地道中式风味，为您带来极致的饺子与拉面体验。", hero_btn: "寻找我们的门店",
                 sec_locations: "我们的门店", loc1_title: "亚历山德里亚店 (C.C. Panorama)",
                 loc_hours: "营业时间", contact_hq: "公司注册地址",
@@ -501,20 +561,23 @@
                 glovo_btn_text: "在 Glovo 上点餐"
             },
             it: {
-                hero_subtitle: "Autentico, fresco e raffinato. Ogni boccone è una vera Robotica di sapori cinesi con ravioli e ramen.", hero_btn: "Trova il Ristorante",
+                nav_home: "Home", nav_locations: "Sedi", nav_menu: "Menù", nav_story: "Storia",
+                hero_subtitle: "Autentico, fresco e raffinato. Ogni boccone è una vera esplosione di sapori cinesi con ravioli e ramen.", hero_btn: "Trova il Ristorante",
                 sec_locations: "Le Nostre Sedi", loc1_title: "Alessandria (C.C. Panorama)",
                 loc_hours: "Orari", contact_hq: "Sede Legale",
                 loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria",
                 glovo_btn_text: "Ordina su Glovo"
             },
             en: {
+                nav_home: "Home", nav_locations: "Locations", nav_menu: "Menu", nav_story: "Our Story",
                 hero_subtitle: "Authentic, fresh, and refined. Every bite is a genuine Chinese flavor experience of dumplings and ramen.", hero_btn: "Find Our Store",
                 sec_locations: "Our Locations", loc1_title: "Alessandria (C.C. Panorama)",
                 loc_hours: "Hours", contact_hq: "Registered Office",
-                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria",
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alexandria",
                 glovo_btn_text: "Order on Glovo"
             },
             de: {
+                nav_home: "Startseite", nav_locations: "Standorte", nav_menu: "Menü", nav_story: "Über Uns",
                 hero_subtitle: "Authentisch, frisch und raffiniert. Jeder Bissen bietet ein echtes chinesisches Geschmackserlebnis mit Dumplings und Ramen.", hero_btn: "Restaurant finden",
                 sec_locations: "Unsere Standorte", loc1_title: "Alessandria (C.C. Panorama)",
                 loc_hours: "Öffnungszeiten", contact_hq: "Eingetragener Sitz",
@@ -522,13 +585,15 @@
                 glovo_btn_text: "Bei Glovo bestellen"
             },
             fr: {
+                nav_home: "Accueil", nav_locations: "Sedi", nav_menu: "Carte", nav_story: "Histoire",
                 hero_subtitle: "Authentique, frais et raffiné. Chaque bouchée est une véritable expérience de saveurs chinoises avec nos raviolis et ramen.", hero_btn: "Trouver un restaurant",
                 sec_locations: "Nos Restaurants", loc1_title: "Alessandria (C.C. Panorama)",
                 loc_hours: "Horaires", contact_hq: "Siège Social",
                 loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria",
-                glovo_btn_text: "Commander su Glovo"
+                glovo_btn_text: "Commander sur Glovo"
             },
             ar: {
+                nav_home: "الرئيسية", nav_locations: "فروعنا", nav_menu: "قائمة الطعام", nav_story: "قصتنا",
                 hero_subtitle: "أصلي، طازج، وراقي. كل قمة هي تجربة تذوق صينية حقيقية مع الزلابية والنودلز الرائعة.", hero_btn: "ابحث عن فرع",
                 sec_locations: "فروعنا", loc1_title: "فرع أليساندريا (C.C. Panorama)",
                 loc_hours: "ساعات العمل", contact_hq: "المقر الرئيسي للشركة",
@@ -555,7 +620,7 @@
             document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
         }
 
-        // GDPR 资产二次打包
+        // GDPR 资产增补
         Object.assign(translations.zh, {
             gdpr_text: "我们使用 Cookie 来确保您在我们网站上获得最佳体验并分析流量。点击“接受”即表示您同意其使用。",
             gdpr_accept: "接受"
@@ -573,7 +638,7 @@
             gdpr_accept: "Akzeptieren"
         });
         Object.assign(translations.fr, {
-            gdpr_text: "Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site. En clicking sur 'Accepter', vous consentez à leur utilisation.",
+            gdpr_text: "Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site. En cliquant sur 'Accepter', vous consentez à leur utilisation.",
             gdpr_accept: "Accepter"
         });
         Object.assign(translations.ar, {
@@ -581,7 +646,7 @@
             gdpr_accept: "قبول"
         });
 
-        // GDPR 核心控制核心脚本
+        // GDPR 控制逻辑
         window.addEventListener('DOMContentLoaded', () => {
             const gdprConsent = localStorage.getItem('gdpr_consent_2026');
             const consentTimestamp = localStorage.getItem('gdpr_consent_time');
@@ -592,6 +657,15 @@
                     document.getElementById('gdprBanner').classList.add('show');
                 }, 1000);
             }
+
+            // 智能导航栏高亮追踪
+            const links = document.querySelectorAll('.menu-link');
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    links.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
         });
 
         function acceptGDPR() {
@@ -602,7 +676,6 @@
         }
     </script>
 
-    <!-- GDPR 弹窗实体 -->
     <div id="gdprBanner" class="gdpr-banner">
         <p class="gdpr-text" data-i18n="gdpr_text">
             Utilizziamo i cookie per garantire la migliore esperienza sul nostro sito e per analizzare il traffico. Cliccando su "Accetta", acconsenti al loro utilizzo.
