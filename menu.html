@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DimSum Express | Il Nostro Menù</title>
+
+    <!-- favicon 标志 -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/HDkwPS3N/IMG-8814.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/HDkwPS3N/IMG-8814.png">
+
+    <!-- Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #d33515; 
+            --secondary-color: #f7a928; 
+            --bg-color: #fdfaf6; 
+            --text-dark: #333333;
+            --text-light: #ffffff;
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body { font-family: var(--font-main); background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center; padding: 15px 5%;
+            background-color: rgba(253, 250, 246, 0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 15px rgba(0,0,0,0.04);
+        }
+
+        .logo img { height: 55px; width: auto; display: block; }
+        .nav-menu { display: flex; align-items: center; list-style: none; gap: 35px; }
+        .menu-link { font-size: 0.95rem; font-weight: 700; color: var(--text-dark); position: relative; padding: 8px 2px; letter-spacing: 0.5px; transition: color 0.25s ease; }
+        .menu-link:hover, .menu-link.active { color: var(--primary-color); }
+        .menu-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--primary-color); transform: scaleX(0); transition: transform 0.25s ease; }
+        .menu-link:hover::after, .menu-link.active::after { transform: scaleX(1); }
+
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .lang-switcher { display: flex; gap: 8px; align-items: center; }
+        .lang-switcher img { width: 28px; height: 20px; object-fit: cover; border-radius: 4px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: transform 0.2s; }
+        .lang-switcher img:hover { transform: scale(1.15); }
+
+        .menu-wrapper { display: flex; max-width: 1300px; margin: 40px auto; padding: 0 5%; gap: 40px; }
+        .menu-sidebar { width: 240px; position: sticky; top: 110px; height: fit-content; background: #fff; padding: 25px 20px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); border-left: 4px solid var(--primary-color); }
+        .sidebar-title { font-size: 1.2rem; font-weight: 800; color: var(--primary-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .category-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .category-item a { display: block; padding: 12px 15px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; color: #555; transition: all 0.2s ease; }
+        .category-item a:hover, .category-item.active a { background-color: #fff1f0; color: var(--primary-color); padding-left: 20px; }
+
+        .menu-content { flex: 1; display: flex; flex-direction: column; gap: 60px; }
+        .menu-section { scroll-margin-top: 110px; }
+        .category-heading { font-size: 1.8rem; font-weight: 800; color: var(--primary-color); margin-bottom: 25px; border-bottom: 2px solid rgba(211,53,21,0.1); padding-bottom: 10px; text-transform: uppercase; }
+
+        .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        .dish-card { background: #ffffff; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.03); border: 1px solid rgba(247,169,40,0.1); transition: transform 0.25s ease, box-shadow 0.25s ease; display: flex; flex-direction: column; }
+        .dish-card:hover { transform: translateY(-4px); box-shadow: 0 12px 25px rgba(211,53,21,0.08); }
+        .dish-img { width: 100%; height: 180px; object-fit: cover; }
+        .dish-info { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .dish-title { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin-bottom: 6px; }
+        .dish-desc { font-size: 0.85rem; color: #777; line-height: 1.4; margin-bottom: 15px; }
+        
+        .dish-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .dish-price { font-size: 1.2rem; font-weight: 800; color: var(--primary-color); }
+        .dish-size-tag { font-size: 0.75rem; background: #f5f0eb; padding: 3px 8px; border-radius: 6px; font-weight: 600; color: #666; }
+
+        html[dir="rtl"] .menu-sidebar { border-left: none; border-right: 4px solid var(--primary-color); }
+        html[dir="rtl"] .category-item a { text-align: right; }
+        html[dir="rtl"] .category-item a:hover, html[dir="rtl"] .category-item.active a { padding-left: 15px; padding-right: 20px; }
+        html[dir="rtl"] .category-heading { text-align: right; }
+        html[dir="rtl"] .dish-title, html[dir="rtl"] .dish-desc { text-align: right; }
+        html[dir="rtl"] .dish-footer { flex-direction: row-reverse; }
+
+        footer { background-color: #4a150c; color: var(--text-light); text-align: center; padding: 40px 20px; margin-top: 80px; }
+        footer p { font-size: 0.85rem; opacity: 0.7; margin-top: 6px; }
+
+        @media (max-width: 890px) {
+            nav { flex-direction: column; gap: 16px; padding: 15px 3%; }
+            .nav-menu { gap: 24px; width: 100%; justify-content: center; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05); padding: 8px 0; }
+            .nav-right { width: 100%; justify-content: center; }
+            .menu-wrapper { flex-direction: column; margin: 15px auto; }
+            .menu-sidebar { width: 100%; position: sticky; top: 135px; z-index: 900; padding: 10px; border-left: none; border-bottom: 3px solid var(--primary-color); overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+            .sidebar-title { display: none; }
+            .category-list { flex-direction: row; gap: 8px; }
+            .category-item a { padding: 8px 16px; }
+            .category-item a:hover, .category-item.active a { padding-left: 16px; background-color: var(--primary-color); color: #fff; }
+            .items-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+            .dish-img { height: 150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <!-- ℹ️ 退回主页动态携带语言 -->
+            <a href="index.html" class="dynamic-link"><img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo"></a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="menu-link dynamic-link" data-i18n="nav_home">首页</a></li>
+            <li><a href="index.html#locations" class="menu-link dynamic-link" data-i18n="nav_locations">美味门店</a></li>
+            <li><a href="menu.html" class="menu-link active dynamic-link" data-i18n="nav_menu">独立菜单页</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="lang-switcher">
+                <img src="https://flagcdn.com/w40/cn.png" alt="中文" onclick="switchLanguage('zh')">
+                <img src="https://flagcdn.com/w40/it.png" alt="Italiano" onclick="switchLanguage('it')">
+                <img src="https://flagcdn.com/w40/gb.png" alt="English" onclick="switchLanguage('en')">
+                <img src="https://flagcdn.com/w40/de.png" alt="Deutsch" onclick="switchLanguage('de')">
+                <img src="https://flagcdn.com/w40/fr.png" alt="Français" onclick="switchLanguage('fr')">
+                <img src="https://flagcdn.com/w40/sa.png" alt="العربية" onclick="switchLanguage('ar')">
+            </div>
+        </div>
+    </nav>
+
+    <div class="menu-wrapper">
+        <aside class="menu-sidebar">
+            <h2 class="sidebar-title" data-i18n="menu_dir">目录分类</h2>
+            <ul class="category-list">
+                <li class="category-item active"><a href="#cat-dimsum" data-i18n="cat_dimsum">DimSum 特色</a></li>
+                <li class="category-item"><a href="#cat-jiaozi" data-i18n="cat_jiaozi">手工饺子</a></li>
+                <li class="category-item"><a href="#cat-baozi" data-i18n="cat_baozi">风味包子</a></li>
+                <li class="category-item"><a href="#cat-snack" data-i18n="cat_snack">中式小吃</a></li>
+                <li class="category-item"><a href="#cat-tea" data-i18n="cat_tea">手作果茶</a></li>
+                <li class="category-item"><a href="#cat-dessert" data-i18n="cat_dessert">精致甜品</a></li>
+            </ul>
+        </aside>
+
+        <main class="menu-content">
+            <section id="cat-dimsum" class="menu-section">
+                <h3 class="category-heading" data-i18n="cat_dimsum">DimSum 特色</h3>
+                <div class="items-grid">
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=600&auto=format&fit=crop" class="dish-img">
+                        <div class="dish-info">
+                            <h4 class="dish-title" data-i18n="dish1_t">招牌水晶虾饺</h4>
+                            <p class="dish-desc" data-i18n="dish1_d">晶莹剔透，整颗饱满虾仁，Q弹鲜美。</p>
+                            <div class="dish-footer"><span class="dish-price">€ 5.50</span></div>
+                        </div>
+                    </div>
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1626132647523-66f5bf380027?q=80&w=600&auto=format&fit=crop" class="dish-img">
+                        <div class="dish-info">
+                            <h4 class="dish-title" data-i18n="dish2_t">经典鲜肉烧麦</h4>
+                            <p class="dish-desc" data-i18n="dish2_d">精选猪肉香菇馅，皮薄爽口，汤汁浓郁。</p>
+                            <div class="dish-footer"><span class="dish-price">€ 4.80</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cat-jiaozi" class="menu-section">
+                <h3 class="category-heading" data-i18n="cat_jiaozi">手工饺子</h3>
+                <div class="items-grid">
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?q=80&w=600&auto=format&fit=crop" class="dish-img">
+                        <div class="dish-info">
+                            <h4 class="dish-title" data-i18n="dish3_t">猪肉白菜蒸饺</h4>
+                            <p class="dish-desc" data-i18n="dish3_d">传统经典搭配，白菜清甜爽脆，肉馅紧实。</p>
+                            <div class="dish-footer"><span class="dish-price">€ 5.00</span></div>
+                        </div>
+                    </div>
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?q=80&w=600&auto=format&fit=crop" class="dish-img">
+                        <div class="dish-info">
+                            <h4 class="dish-title" data-i18n="dish4_t">香菇鸡肉水饺</h4>
+                            <p class="dish-desc" data-i18n="dish4_d">鲜嫩鸡肉配纯香香菇，轻脂健康首选。</p>
+                            <div class="dish-footer"><span class="dish-price">€ 5.20</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cat-baozi" class="menu-section">
+                <h3 class="category-heading" data-i18n="cat_baozi">风味包子</h3>
+                <div class="items-grid">
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1614088685112-0a760b71a3c8?q=80&w=600&auto=format&fit=crop" class="dish-img">
+                        <div class="dish-info">
+                            <h4 class="dish-title" data-i18n="dish5_t">黄金酱肉大包</h4>
+                            <p class="dish-desc" data-i18n="dish5_d">外皮蓬松，酱香浓郁，一口爆汁。</p>
+                            <div class="dish-footer"><span class="dish-price">€ 3.50</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cat-snack" class="menu-section">
+                <h3 class="category-heading" data-i18n="cat_snack">中式小吃</h3>
+                <div class="items-grid">
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop" class="dish-img">
+                        <div class="dish-info">
+                            <h4 class="dish-title" data-i18n="dish6_t">香脆黄金春卷</h4>
+                            <p class="dish-desc" data-i18n="dish6_d">外壳金黄酥脆，纯素蔬菜内馅，丝毫不油腻。</p>
+                            <div class="dish-footer"><span class="dish-price">€ 3.00</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cat-tea" class="menu-section">
+                <h3 class="category-heading" data-i18n="cat_tea">手作果茶</h3>
+                <div class="items-grid">
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop" class="dish-img">
+                        <div class="dish-info">
+                            <h4 class="dish-title" data-i18n="dish7_t">满杯红柚乌龙</h4>
+                            <p class="dish-desc" data-i18n="dish7_d">新鲜红柚果肉果汁融合清幽乌龙茶底。</p>
+                            <div class="dish-footer"><span class="dish-price">€ 4.20</span><span class="dish-size-tag">300ml</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cat-dessert" class="menu-section">
+                <h3 class="category-heading" data-i18n="cat_dessert">精致甜品</h3>
+                <div class="items-grid">
+                    <div class="dish-card">
+                        <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=600&auto=format&fit=crop" class="dish-img">
+                        <div class="dish-info">
+                            <h4 class="dish-title" data-i18n="dish8_t">手工软糯大麻薯</h4>
+                            <p class="dish-desc" data-i18n="dish8_d">古法手工揉制，外皮拉丝，甜而不腻（Domochi 联合出品）。</p>
+                            <div class="dish-footer"><span class="dish-price">€ 3.80</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p><strong>ABCD SRLS</strong> | P.IVA 14118540963</p>
+        <div class="zero1-tag" style="text-align: center; padding: 15px 0 0; font-size: 0.85rem; color: inherit; opacity: 0.7; display: flex; align-items: center; justify-content: center;">
+            <a href="https://zero1studio.it" target="_blank" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+                <svg width="15" height="15" viewBox="0 0 100 100" style="display: inline-block; vertical-align: middle;">
+                    <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="12" fill="none" />
+                    <line x1="50" y1="26" x2="50" y2="74" stroke="#0071e3" stroke-width="12" stroke-linecap="round" />
+                </svg>
+                <span>Sito realizzato da Zero1 Studio</span>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            zh: {
+                nav_home: "首页", nav_locations: "美味门店", nav_menu: "独立菜单页", menu_dir: "目录分类",
+                cat_dimsum: "DimSum 特色", cat_jiaozi: "手工饺子", cat_baozi: "风味包子", cat_snack: "中式小吃", cat_tea: "手作果茶", cat_dessert: "精致甜品",
+                dish1_t: "招牌水晶虾饺", dish1_d: "晶莹剔透，整颗饱满虾仁，Q弹鲜美。",
+                dish2_t: "经典鲜肉烧麦", dish2_d: "精选猪肉香菇馅，皮薄爽口，汤汁浓郁。",
+                dish3_t: "猪肉白菜蒸饺", dish3_d: "传统经典搭配，白菜清甜爽脆，肉馅紧实。",
+                dish4_t: "香菇鸡肉水饺", dish4_d: "鲜嫩鸡肉配纯香香菇，轻脂健康首选。",
+                dish5_t: "黄金酱肉大包", dish5_d: "外皮蓬松，酱香浓郁，一口爆汁。",
+                dish6_t: "香脆黄金春卷", dish6_d: "外壳金黄酥脆，纯素蔬菜内馅，丝丝毫不油腻。",
+                dish7_t: "满杯红柚乌龙", dish7_d: "新鲜红柚果肉果汁融合清幽乌龙茶底。",
+                dish8_t: "手工软糯大麻薯", dish8_d: "古法手工揉制，外皮拉丝，甜而不腻（Domochi 联合出品）。"
+            },
+            it: {
+                nav_home: "Home", nav_locations: "Sedi", nav_menu: "Menù", menu_dir: "Categorie",
+                cat_dimsum: "Specialità DimSum", cat_jiaozi: "Ravioli Artigianali", cat_baozi: "Baozi Sfiziosi", cat_snack: "Snack Cinesi", cat_tea: "Tè alla Frutta", cat_dessert: "Dolci Raffinati",
+                dish1_t: "Ravioli di Gamberi Cristallo", dish1_d: "Trasparente, gamberi interi freschi, consistenza superba.",
+                dish2_t: "Shao Mai di Maiale Classico", dish2_d: "Ripieno di maiale e funghi shiitake, succoso e gustoso.",
+                dish3_t: "Ravioli Maiale e Cavolo", dish3_d: "Abbinamento tradizionale, ripieno compatto e cavolo croccante.",
+                dish4_t: "Ravioli Pollo e Funghi", dish4_d: "Pollo tenero con fragranti funghi shiitake, scelta leggera.",
+                dish5_t: "Baozi con Carne al Sugo", dish5_d: "Soffice pane al vapore ripieno di carne saporita ricca di sugo.",
+                dish6_t: "Involtini Primavera Croccanti", dish6_d: "Involtini vegetariani dorati e croccanti, non unti.",
+                dish7_t: "Oolong al Pompelmo Rosso", dish7_d: "Polpa fresca di pompelmo rosso unita al pregiato tè oolong.",
+                dish8_t: "Mochi Artigianale Morbido", dish8_d: "Mochi super elastico fatto a mano secondo tradizione (by Domochi)."
+            },
+            en: {
+                nav_home: "Home", nav_locations: "Locations", nav_menu: "Menu", menu_dir: "Categories",
+                cat_dimsum: "DimSum Specials", cat_jiaozi: "Handmade Dumplings", cat_baozi: "Flavor Baozi", cat_snack: "Chinese Snacks", cat_tea: "Fruit Tea", cat_dessert: "Desserts",
+                dish1_t: "Crystal Shrimp Dumplings", dish1_d: "Translucent skin with plump whole shrimp, delicious and bouncy.",
+                dish2_t: "Classic Pork Shao Mai", dish2_d: "Selected pork and shiitake mushroom filling, flavorful juice.",
+                dish3_t: "Steamed Pork & Cabbage Dumplings", dish3_d: "Traditional recipe, sweet cabbage with firm meat filling.",
+                dish4_t: "Chicken & Mushroom Dumplings", dish4_d: "Tender chicken and savory mushroom, best healthy option.",
+                dish5_t: "Golden Sauced Pork Bao", dish5_d: "Fluffy steamed bun filled with rich savory sauced pork.",
+                dish6_t: "Crispy Golden Spring Rolls", dish6_d: "Crispy skin with vegan vegetable filling, not greasy at all.",
+                dish7_t: "Grapefruit Oolong Tea", dish7_d: "Fresh red grapefruit pulp mixed with aromatic oolong tea base.",
+                dish8_t: "Handmade Soft Mochi", dish8_d: "Traditional chewy mochi with delicate sweet filling (by Domochi)."
+            },
+            de: {
+                nav_home: "Startseite", nav_locations: "Standorte", nav_menu: "Menü", menu_dir: "Kategorien",
+                cat_dimsum: "DimSum Spezialitäten", cat_jiaozi: "Handgemachte Dumplings", cat_baozi: "Baozi Variationen", cat_snack: "Chinesische Snacks", cat_tea: "Fruchttee", cat_dessert: "Desserts",
+                dish1_t: "Kristall-Garnelen-Dumplings", dish1_d: "Glasklare Hülle mit knackigen ganzen Garnelen, herrlich frisch.",
+                dish2_t: "Klassische Schweinefleisch Shao Mai", dish2_d: "Feine Füllung aus Schweinefleisch und Shiitake-Pilzen.",
+                dish3_t: "Gedämpfte Dumplings Schwein & Kohl", dish3_d: "Traditionelle Kombination, süßlicher Kohl mit saftigem Fleisch.",
+                dish4_t: "Hähnchen & Pilze Dumplings", dish4_d: "Zartes Hähnchenfleisch mit aromatischen Pilzen, leichte Wahl.",
+                dish5_t: "Baozi mit pikanter Fleischfüllung", dish5_d: "Fluffiges Hefekloß gefüllt mit aromatisch gewürztem Schweinefleisch.",
+                dish6_t: "Knusprige Goldene Frühlingsrollen", dish6_d: "Goldgelbe Kruste mit veganer Gemüsefüllung, absolut fettfrei.",
+                dish7_t: "Grapefruit Oolong Tee", dish7_d: "Frisches Grapefruchtfleisch kombiniert mit feiner Oolong-Tee-Basis.",
+                dish8_t: "Handgemachter Weicher Mochi", dish8_d: "Traditionell gekneteter, elastischer Reiskuchen (by Domochi)."
+            },
+            fr: {
+                nav_home: "Accueil", nav_locations: "Sedi", nav_menu: "Carte", menu_dir: "Catégories",
+                cat_dimsum: "Spécialités DimSum", cat_jiaozi: "Raviolis Artisanaux", cat_baozi: "Baozi Savoureux", cat_snack: "Snacks Chinois", cat_tea: "Thé aux Fruits", cat_dessert: "Desserts",
+                dish1_t: "Raviolis de Crevettes Cristal", dish1_d: "Pâte translucide, crevettes entières, texture croquante.",
+                dish2_t: "Shao Mai Classique au Porc", dish2_d: "Farce de porc et champignons shiitake, riche en goût.",
+                dish3_t: "Raviolis Vapeur Porc et Chou", dish3_d: "Mélange traditionnel, chou croquant et farce de porc ferme.",
+                dish4_t: "Raviolis Poulet et Champignons", dish4_d: "Poulet tendre et champignons parfumés, option légère.",
+                dish5_t: "Baozi au Porc en Sauce", dish5_d: "Brioche vapeur ultra-moelleuse avec un cœur de porc en sauce savoureux.",
+                dish6_t: "Nems Impériaux Croustillants", dish6_d: "Galette dorée croustillante, farce 100% légumes, non gras.",
+                dish7_t: "Thé Oolong au Pamplemousse", dish7_d: "Pulpe de pamplemousse frais mélangée à un thé oolong raffiné.",
+                dish8_t: "Mochi Artisanal Moelleux", dish8_d: "Mochi traditionnel fait main, texture filante et douce (by Domochi)."
+            },
+            ar: {
+                nav_home: "الرئيسية", nav_locations: "فروعنا", nav_menu: "قائمة الطعام", menu_dir: "الأقسام",
+                cat_dimsum: "تميز ديم سم", cat_jiaozi: "زلابية يدوية", cat_baozi: "باوزي مميز", cat_snack: "وجبات خفيفة", cat_tea: "شاي الفواكه", cat_dessert: "حلويات فاخرة",
+                dish1_t: "زلابية الروبيان الكريستالية", dish1_d: "غلاف شفاف وروبيان كامل ممتلئ، طعم مرن ورائع.",
+                dish2_t: "شاو ماي اللحم الكلاسيكي", dish2_d: "حشوة مختارة من لحم المفروم وفطر الشيتاكي الغني.",
+                dish3_t: "زلابية لحم المفروم والملفوف", dish3_d: "مزيج تقليدي كلاسيكي، ملفوف مقرمش حلو وحشوة متماسكة.",
+                dish4_t: "زلابية الدجاج والفطر", dish4_d: "دجاج طري مع فطر عطري نقي، خيار صحي خفيف.",
+                dish5_t: "باوزي اللحم بصلصة الذهب", dish5_d: "عجينة هشة على البخار محشوة بلحم مفروم غني بالصلصة.",
+                dish6_t: "سبرينغ رولز ذهبية مقرمشة", dish6_d: "قشرة ذهبية مقرمشة وحشوة خضار نباتية بالكامل غير دهنية.",
+                dish7_t: "شاي أولونغ بالجريب فروت", dish7_d: "قطع جريب فروت طازجة ممتزجة مع شاي أولونغ العطري.",
+                dish8_t: "موتشي يدوي طري", dish8_d: "عجينة موتشي مطاطية يدوية على الطريقة التقليدية (من دوموتشي)."
+            }
+        };
+
+        // 🧠 核心语言记忆骨架
+        let currentLang = localStorage.getItem('dimsum_lang') || 'zh';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('dimsum_lang', lang); // 写入本地锁死
+            
+            if (lang === 'ar') { document.documentElement.setAttribute('dir', 'rtl'); } 
+            else { document.documentElement.setAttribute('dir', 'ltr'); }
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) el.innerText = translations[lang][key];
+            });
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+
+            // 🚀 修改后退链接，让返回 index.html 时同样携带当前选中的语言
+            document.querySelectorAll('.dynamic-link').forEach(link => {
+                const baseUrl = link.getAttribute('href').split('?')[0];
+                link.setAttribute('href', `${baseUrl}?lang=${lang}`);
+            });
+            
+            updateActiveCategory();
+        }
+
+        function updateActiveCategory() {
+            const sections = document.querySelectorAll('.menu-section');
+            const navItems = document.querySelectorAll('.category-item');
+            let currentSectionId = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 130) { currentSectionId = section.getAttribute('id'); }
+            });
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.querySelector('a').getAttribute('href') === `#${currentSectionId}`) { item.classList.add('active'); }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // 优先捕获 URL 传递进来的参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlLang = urlParams.get('lang');
+            if (urlLang && translations[urlLang]) { currentLang = urlLang; }
+            switchLanguage(currentLang);
+        });
+
+        window.addEventListener('scroll', updateActiveCategory);
+    </script>
+</body>
+</html>
