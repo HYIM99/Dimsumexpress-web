@@ -102,16 +102,75 @@
 
         .bg-light-grey { background-color: #f5f0eb; }
 
-        footer { background-color: #4a150c; color: var(--text-light); text-align: center; padding: 50px 20px; }
-        footer .footer-logo { height: 65px; margin-bottom: 25px; }
-        .footer-socials { display: flex; justify-content: center; gap: 25px; margin-bottom: 30px; font-size: 1.6rem; }
-        .footer-socials a { color: var(--text-light); opacity: 0.8; transition: all 0.2s ease; }
+        /* 👑 全新升级：双栏大厂级规范化页脚大厅 */
+        footer {
+            background-color: #4a150c;
+            color: var(--text-light);
+            padding: 60px 8% 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        /* 页脚左栏：资产与社交 */
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .footer-left .footer-logo { height: 60px; margin-bottom: 20px; }
+        .footer-socials { display: flex; gap: 20px; margin-bottom: 25px; font-size: 1.5rem; }
+        .footer-socials a { color: var(--text-light); opacity: 0.85; transition: all 0.2s ease; }
         .footer-socials a:hover { opacity: 1; transform: translateY(-3px); }
         .footer-socials a.insta:hover { color: #f7a928; }
-        .footer-socials a.tiktok:hover { color: #000000; }
+        .footer-socials a.tiktok:hover { color: #ffffff; }
         .footer-socials a.fb:hover { color: #1877F2; }
-        .footer-socials a.threads:hover { color: #cccccc; }
-        footer p { font-size: 0.85rem; opacity: 0.7; margin-top: 6px; letter-spacing: 0.5px; }
+
+        .company-info { font-size: 0.9rem; line-height: 1.6; opacity: 0.9; }
+        .company-info strong { font-size: 1.05rem; display: block; margin-bottom: 4px; letter-spacing: 0.5px; }
+
+        /* 页脚右栏：大厂合规与预留功能区 */
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-left: 20px;
+        }
+        .footer-right-title {
+            font-size: 1.1rem; font-weight: 800; color: var(--secondary-color);
+            margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .footer-links {
+            list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 30px; width: 100%;
+        }
+        .footer-links a {
+            color: var(--text-light); opacity: 0.75; font-size: 0.9rem; font-weight: 600;
+            transition: all 0.2s ease; display: inline-block;
+        }
+        .footer-links a:hover { opacity: 1; color: var(--secondary-color); transform: translateX(3px); }
+
+        /* 页脚最底部隔离带线 */
+        .footer-bottom {
+            margin-top: 45px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+        }
+        .copyright { font-size: 0.85rem; opacity: 0.6; letter-spacing: 0.5px; }
+        
+        .zero1-tag { font-size: 0.85rem; color: inherit; opacity: 0.7; }
+        .zero1-tag a { text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+
+        /* 阿拉伯语 RTL 页脚翻转适配 */
+        html[dir="rtl"] .footer-grid { text-align: right; grid-template-columns: 1fr 1.2fr; }
+        html[dir="rtl"] .footer-left { align-items: flex-start; }
+        html[dir="rtl"] .footer-right { padding-left: 0; padding-right: 20px; align-items: flex-start; }
+        html[dir="rtl"] .footer-links a:hover { transform: translateX(-3px); }
+        html[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
 
         @media (max-width: 890px) {
             nav { flex-direction: column; gap: 16px; padding: 15px 3%; }
@@ -121,6 +180,15 @@
             .hero h1 { font-size: 2.8rem; }
             .hero p { font-size: 1rem; }
             .location-card { padding: 35px 20px; }
+            
+            /* 手机端页脚变为单列垂直紧凑流 */
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .footer-left { align-items: center; }
+            .footer-socials { justify-content: center; }
+            .footer-right { padding-left: 0; padding-right: 0; align-items: center; }
+            .footer-links { grid-template-columns: 1fr; gap: 12px; }
+            .footer-links a:hover { transform: translateY(-2px); }
+            .footer-bottom { flex-direction: column; text-align: center; gap: 10px; }
         }
 
         .gdpr-banner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(150%); width: 90%; max-width: 500px; background-color: #ffffff; color: #333333; padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 9999; display: flex; flex-direction: column; gap: 12px; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid rgba(211,53,21,0.1); }
@@ -137,17 +205,13 @@
 
     <nav>
         <div class="logo">
-            <!-- ℹ️ 跨页动态携带语言链接 -->
             <a href="index.html" class="dynamic-link"><img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo"></a>
         </div>
-        
         <ul class="nav-menu">
             <li><a href="index.html" class="menu-link active dynamic-link" data-i18n="nav_home">首页</a></li>
             <li><a href="#locations" class="menu-link" data-i18n="nav_locations">美味门店</a></li>
-            <!-- ℹ️ 这里的 href 指向真实的独立支页 menu.html -->
             <li><a href="menu.html" class="menu-link dynamic-link" data-i18n="nav_menu">独立菜单页</a></li>
         </ul>
-
         <div class="nav-right">
             <div class="lang-switcher">
                 <img src="https://flagcdn.com/w40/cn.png" alt="中文" onclick="switchLanguage('zh')">
@@ -196,77 +260,113 @@
         </div>
     </section>
 
+    <!-- 👑 全新规范大厂级页脚（双栏预留设计） -->
     <footer>
-        <img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo" class="footer-logo">
-        <div class="footer-socials">
-            <a href="https://www.instagram.com/dimsumexpress.official?igsh=ZzZvMWE4cjM5eXVu&utm_source=qr" target="_blank" class="insta"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@dimsum.express.of?_r=1&_t=ZN-95weziGKPAc" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
-            <a href="https://www.facebook.com/share/1C9QdxWBbW/?mibextid=wwXIfr" target="_blank" class="fb"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.threads.com/@dimsumexpress.official?igshid=NTc4MTIwNjQ2YQ==" target="_blank" class="threads"><i class="fa-brands fa-threads"></i></a>
+        <div class="footer-grid">
+            <!-- 左分栏：Logo与官方抬头资产 -->
+            <div class="footer-left">
+                <img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo" class="footer-logo">
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/dimsumexpress.official?igsh=ZzZvMWE4cjM5eXVu&utm_source=qr" target="_blank" class="insta"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@dimsum.express.of?_r=1&_t=ZN-95weziGKPAc" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/share/1C9QdxWBbW/?mibextid=wwXIfr" target="_blank" class="fb"><i class="fab fa-facebook"></i></a>
+                </div>
+                <div class="company-info">
+                    <strong>ABCD SRLS</strong>
+                    <p>P.IVA 14118540963</p>
+                    <p data-i18n="contact_hq">公司注册地址</p>
+                    <p>Via Pellegrino Rossi 52, 20161 Milano MI</p>
+                </div>
+            </div>
+            
+            <!-- 右分栏：法律条款、过敏原大厅与预留扩展区 -->
+            <div class="footer-right">
+                <h4 class="footer-right-title" data-i18n="foot_title_legal">法律合规与说明</h4>
+                <ul class="footer-links">
+                    <!-- 🚨 过敏原核心入口（已完美绑定多语言） -->
+                    <li><a href="#" onclick="alert(document.documentElement.lang === 'zh-CN' ? '过敏原信息编排中，请向店内收银台索取物理表格。' : 'Informazioni sugli allergeni in aggiornamento. Si prega di richiedere il registro cartaceo in cassa.'); return false;" data-i18n="foot_allergeni"><i class="fas fa-exclamation-triangle" style="margin-right:5px; color:var(--secondary-color);"></i>过敏原信息 (Allergeni)</a></li>
+                    <li><a href="#" onclick="alert('Privacy Policy coming soon...'); return false;" data-i18n="foot_privacy">隐私政策 (Privacy Policy)</a></li>
+                    <li><a href="#" onclick="alert('Cookie Policy coming soon...'); return false;" data-i18n="foot_cookie">Cookie 政策</a></li>
+                    <li><a href="#" onclick="alert('Terms coming soon...'); return false;" data-i18n="foot_terms">服务条款 (Termini)</a></li>
+                    <!-- 💡 预留高阶功能扩展区（招聘、公告、媒体） -->
+                    <li><a href="#" onclick="alert('Work with us coming soon...'); return false;" data-i18n="foot_work">加入我们 (Lavora con noi)</a></li>
+                    <li><a href="#" onclick="alert('News coming soon...'); return false;" data-i18n="foot_press">新闻媒体 (Press)</a></li>
+                </ul>
+            </div>
         </div>
-        <p><strong>ABCD SRLS</strong></p>
-        <p>P.IVA 14118540963</p>
-        <p data-i18n="contact_hq">公司注册地址</p>
-        <p>Via Pellegrino Rossi 52, 20161 Milano MI</p>
-        <p style="margin-top:25px; opacity: 0.5;">© 2026 DimSum Express. All rights reserved.</p>
 
-        <div class="zero1-tag" style="text-align: center; padding: 10px 20px 25px; font-size: 0.85rem; color: inherit; opacity: 0.7; display: flex; align-items: center; justify-content: center; line-height: 1;">
-            <a href="https://zero1studio.it" target="_blank" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; vertical-align: middle;">
-                <svg width="15" height="15" viewBox="0 0 100 100" style="display: inline-block; vertical-align: middle;">
-                    <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="12" fill="none" />
-                    <line x1="50" y1="26" x2="50" y2="74" stroke="#0071e3" stroke-width="12" stroke-linecap="round" />
-                </svg>
-                <span>Sito realizzato da Zero1 Studio</span>
-            </a>
+        <!-- 隔离带：版权区与制作方签名 -->
+        <div class="footer-bottom">
+            <span class="copyright">© 2026 DimSum Express. <span data-i18n="foot_rights">All rights reserved.</span></span>
+            <div class="zero1-tag">
+                <a href="https://zero1studio.it" target="_blank">
+                    <svg width="15" height="15" viewBox="0 0 100 100" style="display: inline-block; vertical-align: middle;">
+                        <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="12" fill="none" />
+                        <line x1="50" y1="26" x2="50" y2="74" stroke="#0071e3" stroke-width="12" stroke-linecap="round" />
+                    </svg>
+                    <span data-i18n="foot_madeby">Sito realizzato da Zero1 Studio</span>
+                </a>
+            </div>
         </div>
     </footer>
 
     <script>
         const translations = {
             zh: {
-                nav_home: "首页", nav_locations: "门店", nav_menu: "菜单",
+                nav_home: "首页", nav_locations: "美味门店", nav_menu: "独立菜单页",
                 hero_subtitle: "正宗、新鲜、精致。每一口都是地道中式风味，为您带来极致的饺子与拉面体验。", hero_btn: "寻找我们的门店",
                 sec_locations: "我们的门店", loc1_title: "亚历山德里亚店 (C.C. Panorama)", loc_hours: "营业时间", contact_hq: "公司注册地址",
-                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria", glovo_btn_text: "在 Glovo 上点餐"
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria", glovo_btn_text: "在 Glovo 上点餐",
+                foot_title_legal: "法律合规与说明", foot_allergeni: "⚠️ 过敏原信息", foot_privacy: "隐私政策", foot_cookie: "Cookie 政策",
+                foot_terms: "服务条款", foot_work: "加入我们 (招聘)", foot_press: "新闻与公告", foot_rights: "保留所有权利。", foot_madeby: "网站由 Zero1 Studio 制作"
             },
             it: {
-                nav_home: "Home", nav_locations: "Locale", nav_menu: "Menù",
+                nav_home: "Home", nav_locations: "Sedi", nav_menu: "Menù",
                 hero_subtitle: "Autentico, fresco e raffinato. Ogni boccone è una vera esplosione di sapori cinesi con ravioli e ramen.", hero_btn: "Trova il Ristorante",
-                sec_locations: "Le Nostre Sedi", loc1_title: "Alessandria (C.C. Panorama)", loc_hours: "Orari", contact_hq: "Sede Legal",
-                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria", glovo_btn_text: "Ordina su Glovo"
+                sec_locations: "Le Nostre Sedi", loc1_title: "Alessandria (C.C. Panorama)", loc_hours: "Orari", contact_hq: "Sede Legale",
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria", glovo_btn_text: "Ordina su Glovo",
+                foot_title_legal: "Note Legali & Compliance", foot_allergeni: "⚠️ Allergeni", foot_privacy: "Privacy Policy", foot_cookie: "Cookie Policy",
+                foot_terms: "Termini e Condizioni", foot_work: "Lavora con noi", foot_press: "Press & News", foot_rights: "Tutti i diritti riservati.", foot_madeby: "Sito realizzato da Zero1 Studio"
             },
             en: {
                 nav_home: "Home", nav_locations: "Locations", nav_menu: "Menu",
                 hero_subtitle: "Authentic, fresh, and refined. Every bite is a genuine Chinese flavor experience of dumplings and ramen.", hero_btn: "Find Our Store",
                 sec_locations: "Our Locations", loc1_title: "Alessandria (C.C. Panorama)", loc_hours: "Hours", contact_hq: "Registered Office",
-                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alexandria", glovo_btn_text: "Order on Glovo"
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alexandria", glovo_btn_text: "Order on Glovo",
+                foot_title_legal: "Legal & Compliance", foot_allergeni: "⚠️ Allergeni / Allergens", foot_privacy: "Privacy Policy", foot_cookie: "Cookie Policy",
+                foot_terms: "Terms & Conditions", foot_work: "Work with us", foot_press: "Press & News", foot_rights: "All rights reserved.", foot_madeby: "Site realized by Zero1 Studio"
             },
             de: {
                 nav_home: "Startseite", nav_locations: "Standorte", nav_menu: "Menü",
                 hero_subtitle: "Authentisch, frisch und raffiniert. Jeder Bissen bietet ein echtes chinesisches Geschmackserlebnis mit Dumplings und Ramen.", hero_btn: "Restaurant finden",
                 sec_locations: "Unsere Standorte", loc1_title: "Alessandria (C.C. Panorama)", loc_hours: "Öffnungszeiten", contact_hq: "Eingetragener Sitz",
-                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria", glovo_btn_text: "Bei Glovo bestellen"
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria", glovo_btn_text: "Bei Glovo bestellen",
+                foot_title_legal: "Rechtliche Hinweise", foot_allergeni: "⚠️ Allergenfilter", foot_privacy: "Datenschutzerklärung", foot_cookie: "Cookie-Richtlinie",
+                foot_terms: "Allgemeine Geschäftsbedingungen", foot_work: "Karriere", foot_press: "Presse", foot_rights: "Alle Rechte vorbehalten.", foot_madeby: "Website erstellt von Zero1 Studio"
             },
             fr: {
                 nav_home: "Accueil", nav_locations: "Sedi", nav_menu: "Carte",
                 hero_subtitle: "Authentique, frais et raffiné. Chaque bouchée est une véritable expérience de saveurs chinoises avec nos raviolis et ramen.", hero_btn: "Trouver un restaurant",
                 sec_locations: "Nos Restaurants", loc1_title: "Alessandria (C.C. Panorama)", loc_hours: "Horaires", contact_hq: "Siège Social",
-                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria", glovo_btn_text: "Commander sur Glovo"
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria", glovo_btn_text: "Commander sur Glovo",
+                foot_title_legal: "Mentions Légales", foot_allergeni: "⚠️ Allergènes", foot_privacy: "Politique de Confidentialité", foot_cookie: "Politique des Cookies",
+                foot_terms: "Conditions Générales", foot_work: "Recrutement", foot_press: "Presse", foot_rights: "Tous droits réservés.", foot_madeby: "Site réalisé par Zero1 Studio"
             },
             ar: {
                 nav_home: "الرئيسية", nav_locations: "فروعنا", nav_menu: "قائمة الطعام",
                 hero_subtitle: "أصلي، طازج، وراقي. كل قمة هي تجربة تذوق صينية حقيقية مع الزلابية والنودلز الرائعة.", hero_btn: "ابحث عن فرع",
                 sec_locations: "فروعنا", loc1_title: "فرع أليساندريا (C.C. Panorama)", loc_hours: "ساعات العمل", contact_hq: "المقر الرئيسي للشركة",
-                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria", glovo_btn_text: "اطلب عبر Glovo"
+                loc_address_text: "Centro Commerciale Panorama - Corso Giuseppe Romita 50, Alessandria", glovo_btn_text: "اطلب عبر Glovo",
+                foot_title_legal: "الامتثال والمسائل القانونية", foot_allergeni: "⚠️ معلومات الحساسية", foot_privacy: "سياسة الخصوصية", foot_cookie: "سياسة الكوكيز",
+                foot_terms: "شروط الخدمة", foot_work: "انضم إلينا", foot_press: "الصحافة والأخبار", foot_rights: "جميع الحقوق محفوظة.", foot_madeby: "تم إنشاء الموقع بواسطة Zero1 Studio"
             }
         };
 
-        // 🧠 核心语言记忆骨架
         let currentLang = localStorage.getItem('dimsum_lang') || 'zh';
 
         function switchLanguage(lang) {
             currentLang = lang;
-            localStorage.setItem('dimsum_lang', lang); // 永久锁定本地缓存
+            localStorage.setItem('dimsum_lang', lang);
             
             if (lang === 'ar') { document.documentElement.setAttribute('dir', 'rtl'); } 
             else { document.documentElement.setAttribute('dir', 'ltr'); }
@@ -277,24 +377,18 @@
             });
             document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
 
-            // 🚀 核心：修改页面所有跳转链接，强行带上当前语言参数
             document.querySelectorAll('.dynamic-link').forEach(link => {
                 const baseUrl = link.getAttribute('href').split('?')[0];
                 link.setAttribute('href', `${baseUrl}?lang=${lang}`);
             });
         }
 
-        // 初始化
         window.addEventListener('DOMContentLoaded', () => {
-            // 检查 URL 里有没有带语言参数（最高优先级）
             const urlParams = new URLSearchParams(window.location.search);
             const urlLang = urlParams.get('lang');
-            if (urlLang && translations[urlLang]) {
-                currentLang = urlLang;
-            }
+            if (urlLang && translations[urlLang]) { currentLang = urlLang; }
             switchLanguage(currentLang);
 
-            // GDPR 触发
             const gdprConsent = localStorage.getItem('gdpr_consent_2026');
             if (!gdprConsent) {
                 setTimeout(() => { document.getElementById('gdprBanner').classList.add('show'); }, 1000);
@@ -311,7 +405,7 @@
         Object.assign(translations.en, { gdpr_text: "We use cookies to ensure you get the best experience on our website and to analyze traffic. By clicking 'Accept', you consent to their use.", gdpr_accept: "Accept" });
         Object.assign(translations.de, { gdpr_text: "Wir verwenden Cookies, um sicherzustellen, dass Sie das beste Erlebnis auf unserer Website erhalten. Wenn Sie auf 'Akzeptieren' klicken, stimmen Sie deren Verwendung zu.", gdpr_accept: "Akzeptieren" });
         Object.assign(translations.fr, { gdpr_text: "Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site. En cliquant sur 'Accepter', vous consentez à leur utilisation.", gdpr_accept: "Accepter" });
-        Object.assign(translations.ar, { gdpr_text: "نحن نستخدم ملفات تعريف الارتباط لضمان حصولك على أفضل تجربة على موقعنا ولتحليل حركة المرور. بالنقر فوق 'قبول'، فإنك توافق على استخدامها.", gdpr_accept: "قبول" });
+        Object.assign(translations.ar, { gdpr_text: "نحن نستخدم ملفات تعريف الارتباط لضمان حصولك auf أصل تجربة على موقعنا ولتحليل حركة المرور. بالنقر فوق 'قبول'، فإنك توافق على استخدامها.", gdpr_accept: "قبول" });
     </script>
 
     <div id="gdprBanner" class="gdpr-banner">
