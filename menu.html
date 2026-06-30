@@ -27,7 +27,6 @@
         body { font-family: var(--font-main); background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; }
         a { text-decoration: none; color: inherit; }
 
-        /* 统一的高端弹性导航栏 */
         nav {
             display: flex; justify-content: space-between; align-items: center; padding: 15px 5%;
             background-color: rgba(253, 250, 246, 0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -46,7 +45,6 @@
         .lang-switcher img { width: 28px; height: 20px; object-fit: cover; border-radius: 4px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: transform 0.2s; }
         .lang-switcher img:hover { transform: scale(1.15); }
 
-        /* 框架排版 */
         .menu-wrapper { display: flex; max-width: 1300px; margin: 40px auto; padding: 0 5%; gap: 40px; }
         .menu-sidebar { width: 240px; position: sticky; top: 110px; height: fit-content; background: #fff; padding: 25px 20px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); border-left: 4px solid var(--primary-color); }
         .sidebar-title { font-size: 1.2rem; font-weight: 800; color: var(--primary-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
@@ -55,7 +53,6 @@
         .category-item a { display: block; padding: 12px 15px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; color: #555; transition: all 0.2s ease; }
         .category-item a:hover, .category-item.active a { background-color: #fff1f0; color: var(--primary-color); padding-left: 20px; }
 
-        /* 右侧建设中大厅 */
         .menu-content { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 400px; background: #ffffff; border-radius: 20px; box-shadow: 0 6px 18px rgba(0,0,0,0.02); border: 1px solid rgba(247,169,40,0.1); padding: 40px; text-align: center; }
         
         .coming-soon-icon { font-size: 3.5rem; color: var(--secondary-color); margin-bottom: 15px; animation: pulse 2s infinite; }
@@ -68,12 +65,37 @@
             100% { transform: scale(1); opacity: 0.9; }
         }
 
+        /* 👑 页脚同步无缝移植 */
+        footer {
+            background-color: #4a150c; color: var(--text-light); padding: 60px 8% 30px; margin-top: 80px;
+        }
+        .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; max-width: 1200px; margin: 0 auto; text-align: left; }
+        .footer-left { display: flex; flex-direction: column; align-items: flex-start; }
+        .footer-left .footer-logo { height: 60px; margin-bottom: 20px; }
+        .footer-socials { display: flex; gap: 20px; margin-bottom: 25px; font-size: 1.5rem; }
+        .footer-socials a { color: var(--text-light); opacity: 0.85; transition: all 0.2s ease; }
+        .footer-socials a:hover { opacity: 1; transform: translateY(-3px); }
+        .footer-socials a.insta:hover { color: #f7a928; }
+        .footer-socials a.tiktok:hover { color: #ffffff; }
+        .footer-socials a.fb:hover { color: #1877F2; }
+        .company-info { font-size: 0.9rem; line-height: 1.6; opacity: 0.9; }
+        .company-info strong { font-size: 1.05rem; display: block; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-start; padding-left: 20px; }
+        .footer-right-title { font-size: 1.1rem; font-weight: 800; color: var(--secondary-color); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 30px; width: 100%; list-style: none; }
+        .footer-links a { color: var(--text-light); opacity: 0.75; font-size: 0.9rem; font-weight: 600; transition: all 0.2s ease; display: inline-block; }
+        .footer-links a:hover { opacity: 1; color: var(--secondary-color); transform: translateX(3px); }
+        .footer-bottom { margin-top: 45px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .copyright { font-size: 0.85rem; opacity: 0.6; letter-spacing: 0.5px; }
+        .zero1-tag { font-size: 0.85rem; color: inherit; opacity: 0.7; }
+        .zero1-tag a { text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+
         html[dir="rtl"] .menu-sidebar { border-left: none; border-right: 4px solid var(--primary-color); }
         html[dir="rtl"] .category-item a { text-align: right; }
         html[dir="rtl"] .category-item a:hover, html[dir="rtl"] .category-item.active a { padding-left: 15px; padding-right: 20px; }
-
-        footer { background-color: #4a150c; color: var(--text-light); text-align: center; padding: 40px 20px; margin-top: 80px; }
-        footer p { font-size: 0.85rem; opacity: 0.7; margin-top: 6px; }
+        html[dir="rtl"] .footer-grid { text-align: right; grid-template-columns: 1fr 1.2fr; }
+        html[dir="rtl"] .footer-right { padding-left: 0; padding-right: 20px; align-items: flex-start; }
+        html[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
 
         @media (max-width: 890px) {
             nav { flex-direction: column; gap: 16px; padding: 15px 3%; }
@@ -87,12 +109,18 @@
             .category-item a:hover, .category-item.active a { padding-left: 16px; background-color: var(--primary-color); color: #fff; }
             .menu-content { min-height: 250px; padding: 30px 20px; }
             .coming-soon-text { font-size: 1.5rem; }
+            
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .footer-left { align-items: center; }
+            .footer-socials { justify-content: center; }
+            .footer-right { padding-left: 0; padding-right: 0; align-items: center; }
+            .footer-links { grid-template-columns: 1fr; gap: 12px; }
+            .footer-bottom { flex-direction: column; text-align: center; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 导航栏 -->
     <nav>
         <div class="logo">
             <a href="index.html" class="dynamic-link"><img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo"></a>
@@ -114,9 +142,7 @@
         </div>
     </nav>
 
-    <!-- 骨架屏主会场 -->
     <div class="menu-wrapper">
-        <!-- 完美的左侧目录分类，供客户预览未来的菜单版块结构 -->
         <aside class="menu-sidebar">
             <h2 class="sidebar-title" data-i18n="menu_dir">目录分类</h2>
             <ul class="category-list">
@@ -129,7 +155,6 @@
             </ul>
         </aside>
 
-        <!-- 右侧优雅留白：网页制作中 -->
         <main class="menu-content">
             <div class="coming-soon-icon"><i class="fas fa-utensils"></i></div>
             <h3 class="coming-soon-text" data-i18n="status_loading">网页制作中...</h3>
@@ -137,17 +162,46 @@
         </main>
     </div>
 
-    <!-- 页脚 -->
+    <!-- 👑 页脚完美对称移植 -->
     <footer>
-        <p><strong>ABCD SRLS</strong> | P.IVA 14118540963</p>
-        <div class="zero1-tag" style="text-align: center; padding: 15px 0 0; font-size: 0.85rem; color: inherit; opacity: 0.7; display: flex; align-items: center; justify-content: center;">
-            <a href="https://zero1studio.it" target="_blank" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
-                <svg width="15" height="15" viewBox="0 0 100 100" style="display: inline-block; vertical-align: middle;">
-                    <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="12" fill="none" />
-                    <line x1="50" y1="26" x2="50" y2="74" stroke="#0071e3" stroke-width="12" stroke-linecap="round" />
-                </svg>
-                <span>Sito realizzato da Zero1 Studio</span>
-            </a>
+        <div class="footer-grid">
+            <div class="footer-left">
+                <img src="https://i.ibb.co/HDkwPS3N/IMG-8814.png" alt="DimSum Express Logo" class="footer-logo">
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/dimsumexpress.official?igsh=ZzZvMWE4cjM5eXVu&utm_source=qr" target="_blank" class="insta"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@dimsum.express.of?_r=1&_t=ZN-95weziGKPAc" target="_blank" class="tiktok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/share/1C9QdxWBbW/?mibextid=wwXIfr" target="_blank" class="fb"><i class="fab fa-facebook"></i></a>
+                </div>
+                <div class="company-info">
+                    <strong>ABCD SRLS</strong>
+                    <p>P.IVA 14118540963</p>
+                    <p data-i18n="contact_hq">公司注册地址</p>
+                    <p>Via Pellegrino Rossi 52, 20161 Milano MI</p>
+                </div>
+            </div>
+            <div class="footer-right">
+                <h4 class="footer-right-title" data-i18n="foot_title_legal">法律合规与说明</h4>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="alert(document.documentElement.lang === 'zh-CN' ? '过敏原信息编排中，请向店内收银台索取物理表格。' : 'Informazioni sugli allergeni in aggiornamento. Si prega di richiedere il registro cartaceo in cassa.'); return false;" data-i18n="foot_allergeni"><i class="fas fa-exclamation-triangle" style="margin-right:5px; color:var(--secondary-color);"></i>过敏原信息 (Allergeni)</a></li>
+                    <li><a href="#" onclick="alert('Privacy Policy coming soon...'); return false;" data-i18n="foot_privacy">隐私政策 (Privacy Policy)</a></li>
+                    <li><a href="#" onclick="alert('Cookie Policy coming soon...'); return false;" data-i18n="foot_cookie">Cookie 政策</a></li>
+                    <li><a href="#" onclick="alert('Terms coming soon...'); return false;" data-i18n="foot_terms">服务条款 (Termini)</a></li>
+                    <li><a href="#" onclick="alert('Work with us coming soon...'); return false;" data-i18n="foot_work">加入我们 (Lavora con noi)</a></li>
+                    <li><a href="#" onclick="alert('News coming soon...'); return false;" data-i18n="foot_press">新闻媒体 (Press)</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="copyright">© 2026 DimSum Express. <span data-i18n="foot_rights">All rights reserved.</span></span>
+            <div class="zero1-tag">
+                <a href="https://zero1studio.it" target="_blank">
+                    <svg width="15" height="15" viewBox="0 0 100 100" style="display: inline-block; vertical-align: middle;">
+                        <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="12" fill="none" />
+                        <line x1="50" y1="26" x2="50" y2="74" stroke="#0071e3" stroke-width="12" stroke-linecap="round" />
+                    </svg>
+                    <span data-i18n="foot_madeby">Sito realizzato da Zero1 Studio</span>
+                </a>
+            </div>
         </div>
     </footer>
 
@@ -156,32 +210,44 @@
             zh: {
                 nav_home: "首页", nav_locations: "美味门店", nav_menu: "独立菜单页", menu_dir: "目录分类",
                 cat_dimsum: "DimSum 特色", cat_jiaozi: "手工饺子", cat_baozi: "风味包子", cat_snack: "中式小吃", cat_tea: "手作果茶", cat_dessert: "精致甜品",
-                status_loading: "网页制作中...", status_sub: "精心编排的美味菜单即将上线，敬请期待！"
+                status_loading: "网页制作中...", status_sub: "精心编排的美味菜单即将上线，敬请期待！",
+                foot_title_legal: "法律合规与说明", foot_allergeni: "⚠️ 过敏原信息", foot_privacy: "隐私政策", foot_cookie: "Cookie 政策",
+                foot_terms: "服务条款", foot_work: "加入我们 (招聘)", foot_press: "新闻与公告", foot_rights: "保留所有权利。", foot_madeby: "网站由 Zero1 Studio 制作"
             },
             it: {
                 nav_home: "Home", nav_locations: "Sedi", nav_menu: "Menù", menu_dir: "Categorie",
                 cat_dimsum: "Specialità DimSum", cat_jiaozi: "Ravioli Artigianali", cat_baozi: "Baozi Sfiziosi", cat_snack: "Snack Cinesi", cat_tea: "Tè alla Frutta", cat_dessert: "Dolci Raffinati",
-                status_loading: "Sito in Costruzione...", status_sub: "Il nostro delizioso menù sarà disponibile a breve!"
+                status_loading: "Sito in Costruzione...", status_sub: "Il nostro delizioso menù sarà disponibile a breve!",
+                foot_title_legal: "Note Legali & Compliance", foot_allergeni: "⚠️ Allergeni", foot_privacy: "Privacy Policy", foot_cookie: "Cookie Policy",
+                foot_terms: "Termini e Condizioni", foot_work: "Lavora con noi", foot_press: "Press & News", foot_rights: "Tutti i diritti riservati.", foot_madeby: "Sito realizzato da Zero1 Studio"
             },
             en: {
                 nav_home: "Home", nav_locations: "Locations", nav_menu: "Menu", menu_dir: "Categories",
                 cat_dimsum: "DimSum Specials", cat_jiaozi: "Handmade Dumplings", cat_baozi: "Flavor Baozi", cat_snack: "Chinese Snacks", cat_tea: "Fruit Tea", cat_dessert: "Desserts",
-                status_loading: "Coming Soon...", status_sub: "Our delicious menu is being prepared and will be live shortly!"
+                status_loading: "Coming Soon...", status_sub: "Our delicious menu is being prepared and will be live shortly!",
+                foot_title_legal: "Legal & Compliance", foot_allergeni: "⚠️ Allergeni / Allergens", foot_privacy: "Privacy Policy", foot_cookie: "Cookie Policy",
+                foot_terms: "Terms & Conditions", foot_work: "Work with us", foot_press: "Press & News", foot_rights: "All rights reserved.", foot_madeby: "Site realized by Zero1 Studio"
             },
             de: {
                 nav_home: "Startseite", nav_locations: "Standorte", nav_menu: "Menü", menu_dir: "Kategorien",
                 cat_dimsum: "DimSum Spezialitäten", cat_jiaozi: "Handgemachte Dumplings", cat_baozi: "Baozi Variationen", cat_snack: "Chinesische Snacks", cat_tea: "Fruchttee", cat_dessert: "Desserts",
-                status_loading: "In Bearbeitung...", status_sub: "Unsere leckere Speisekarte wird gerade vorbereitet!"
+                status_loading: "In Bearbeitung...", status_sub: "Unsere leckere Speisekarte wird gerade vorbereitet!",
+                foot_title_legal: "Rechtliche Hinweise", foot_allergeni: "⚠️ Allergenfilter", foot_privacy: "Datenschutzerklärung", foot_cookie: "Cookie-Richtlinie",
+                foot_terms: "Allgemeine Geschäftsbedingungen", foot_work: "Karriere", foot_press: "Presse", foot_rights: "Alle Rechte vorbehalten.", foot_madeby: "Website erstellt von Zero1 Studio"
             },
             fr: {
                 nav_home: "Accueil", nav_locations: "Sedi", nav_menu: "Carte", menu_dir: "Catégories",
                 cat_dimsum: "Spécialités DimSum", cat_jiaozi: "Raviolis Artisanaux", cat_baozi: "Baozi Savoureux", cat_snack: "Snacks Chinois", cat_tea: "Thé aux Fruits", cat_dessert: "Desserts",
-                status_loading: "En Construction...", status_sub: "Notre délicieux menu est en préparation et sera bientôt en ligne !"
+                status_loading: "En Construction...", status_sub: "Notre délicieux menu est en préparation et sera bientôt en ligne !",
+                foot_title_legal: "Mentions Légales", foot_allergeni: "⚠️ Allergènes", foot_privacy: "Politique de Confidentialité", foot_cookie: "Politique des Cookies",
+                foot_terms: "Conditions Générales", foot_work: "Recrutement", foot_press: "Presse", foot_rights: "Tous droits réservés.", foot_madeby: "Site réalisé par Zero1 Studio"
             },
             ar: {
                 nav_home: "الرئيسية", nav_locations: "فروعنا", nav_menu: "قائمة الطعام", menu_dir: "الأقسام",
                 cat_dimsum: "تميز ديم سم", cat_jiaozi: "زلابية يدوية", cat_baozi: "باوزي مميز", cat_snack: "وجبات خفيفة", cat_tea: "شاي الفواكه", cat_dessert: "حلويات فاخرة",
-                status_loading: "الموقع تحت الإنشاء...", status_sub: "قائمة طعامنا اللذيذة قيد الإعداد وستكون متاحة قريبًا!"
+                status_loading: "الموقع تحت الإنشاء...", status_sub: "قائمة طعامنا اللذيذة قيد الإعداد وستكون متاحة قريبًا!",
+                foot_title_legal: "الامتثال والمسائل القانونية", foot_allergeni: "⚠️ معلومات الحساسية", foot_privacy: "سياسة الخصوصية", foot_cookie: "سياسة الكوكيز",
+                foot_terms: "شروط الخدمة", foot_work: "انضم إلينا", foot_press: "الصحافة والأخبار", foot_rights: "جميع الحقوق محفوظة.", foot_madeby: "تم إنشاء الموقع بواسطة Zero1 Studio"
             }
         };
 
@@ -212,7 +278,6 @@
             if (urlLang && translations[urlLang]) { currentLang = urlLang; }
             switchLanguage(currentLang);
             
-            // iPad/移动端横截触控优化，点击分类高亮
             const items = document.querySelectorAll('.category-item');
             items.forEach(item => {
                 item.addEventListener('click', function() {
